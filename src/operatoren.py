@@ -15,20 +15,20 @@ class Operator(Enum):
     def berechne(self, operand_1: float, operand_2: float) -> float:
         return self.value[1](operand_1, operand_2)
         
-    def istStrichrechnung(self) -> bool:
-        return not self.istPunktrechnung()
+    def ist_strichrechnung(self) -> bool:
+        return not self.ist_punktrechnung()
     
-    def istPunktrechnung(self) -> bool:
+    def ist_punktrechnung(self) -> bool:
         return self is Operator.MULT or self is Operator.DIV
 
     def bindetGleich(self, operator: Operator) -> bool:
         return not self.bindetSchwaecher(operator) and not self.bindetStaerker(operator)
 
     def bindetSchwaecher(self, operator: Operator) -> bool:
-        return self.istStrichrechnung() and operator.istPunktrechnung()
+        return self.ist_strichrechnung() and operator.ist_punktrechnung()
 
     def bindetStaerker(self, operator: Operator) -> bool:
-        return self.istPunktrechnung() and operator.istStrichrechnung()
+        return self.ist_punktrechnung() and operator.ist_strichrechnung()
 
     @staticmethod
     def werte_liste() -> List[str]:
